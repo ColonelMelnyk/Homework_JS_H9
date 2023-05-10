@@ -9,6 +9,7 @@ const days = document.querySelector(`[data-days]`);
 const hours = document.querySelector('[data-hours]');
 const minutes = document.querySelector('[data-minutes]');
 const seconds = document.querySelector(`[data-seconds]`);
+let timerInterval = null;
 startBtn.setAttribute(`disabled`, true);
 timer.style.display = "flex";
 fields.forEach(field =>{
@@ -35,13 +36,33 @@ function convertMs(ms) {
   
     return { days, hours, minutes, seconds };
   }
+  function padStart(value){
+   return String(value).padStart(2, '0');
+  }
+  function onScreenLoad(object){
+    days.textContent = padStart(object.days);
+    hours.textContent = padStart(object.hours);
+    minutes.textContent = padStart(object.minutes);
+    seconds.textContent = padStart(object.seconds);
+}
+function counter(chosenDate){
+
+    currentDate = new Date();
+    const countdownTime = convertMs(chosenDate.getTime() - currentDate.getTime());
+    console.log(countdownTime);
+    onScreenLoad(countdownTime);
+    if (countdownTime <= 0){
+        clearInterval(timerInterval);
+        onScreenLoad({ days: 0, hours: 0, minutes: 0, seconds: 0})
+    }
+}
 const options = {
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
     onClose(selectedDates) {
-        const currentDate = options.defaultDate;
+        const currentDate = new Date;
         const chosenDate = selectedDates[0];
         if(chosenDate < currentDate){
             Notiflix.Notify.failure('Please choose a date in the future');
@@ -51,14 +72,10 @@ const options = {
             console.log(currentDate.getTime());
             startBtn.addEventListener('click', startCounter);
              function startCounter(){
-                const countdownTime = chosenDate.getTime() - currentDate.getTime();
-                const { days: countdownDays, hours: countdownHours, minutes: countdownMinutes, seconds: countdownSeconds,} = convertMs(countdownTime) ;
-                console.log(convertMs(countdownTime));
-                days.textContent = countdownDays;
-                hours.textContent = countdownHours;
-                minutes.textContent = countdownMinutes;
-                seconds.textContent = countdownSeconds;
-
+                clearInterval(timerInterval);
+                setInterval(()=> counter(chosenDate), 1000);
+                startBtn.setAttribute(`disabled`, true);
+               
             }
         }
         
