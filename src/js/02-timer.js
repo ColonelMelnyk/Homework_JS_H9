@@ -51,9 +51,12 @@ function counter(chosenDate){
     const countdownTime = convertMs(chosenDate.getTime() - currentDate.getTime());
     console.log(countdownTime);
     onScreenLoad(countdownTime);
-    if (countdownTime <= 0){
+    if ((countdownTime.days === 0 && countdownTime.hours === 0 && countdownTime.minutes === 0 && countdownTime.seconds ===0)){
         clearInterval(timerInterval);
-        onScreenLoad({ days: 0, hours: 0, minutes: 0, seconds: 0})
+        days.textContent = padStart(0);
+        hours.textContent = padStart(0);
+        minutes.textContent = padStart(0);
+        seconds.textContent = padStart(0);
     }
 }
 const options = {
@@ -73,7 +76,7 @@ const options = {
             startBtn.addEventListener('click', startCounter);
              function startCounter(){
                 clearInterval(timerInterval);
-                setInterval(()=> counter(chosenDate), 1000);
+               timerInterval = setInterval(()=> counter(chosenDate), 1000);
                 startBtn.setAttribute(`disabled`, true);
                
             }
