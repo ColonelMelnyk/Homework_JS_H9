@@ -22,9 +22,9 @@ function launch(event){
   const delay = parseInt(delayInput.value);
   const step = parseInt(stepInput.value);
   const amount = parseInt(amountInput.value);
-  for (let position = 1; position <= amount; position += 1) {
+  for (let position = 1; position <= amount; i += 1) {
    
-    createPromise(position, delay + step * (position - 1))
+    createPromise(position, delay + (i - 1) * step)
       .then(({ position, delay }) => {
         Notiflix.Notify.success(
           `✅ Fulfilled promise ${position} in ${delay}ms`
