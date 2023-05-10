@@ -12,7 +12,7 @@ const seconds = document.querySelector(`[data-seconds]`);
 let timerInterval = null;
 startBtn.setAttribute(`disabled`, true);
 timer.style.display = "flex";
-fields.forEach(field =>{
+fields.forEach(field =>{  // adding CSS markup to fields
     field.style.display = "flex";
     field.style.flexDirection ="column";
     field.style.margin ="5px";
@@ -37,15 +37,15 @@ function convertMs(ms) {
     return { days, hours, minutes, seconds };
   }
   function padStart(value){
-   return String(value).padStart(2, '0');
+   return String(value).padStart(2, '0'); // adding zeroes if value < 10
   }
-  function onScreenLoad(object){
+  function onScreenLoad(object){  // function for on-screen output of countdown object and its properties, and translation into text content of span elements responsible for timer display
     days.textContent = padStart(object.days);
     hours.textContent = padStart(object.hours);
     minutes.textContent = padStart(object.minutes);
     seconds.textContent = padStart(object.seconds);
 }
-function counter(chosenDate){
+function counter(chosenDate){   // counter function, nuff said
 
     currentDate = new Date();
     const countdownTime = convertMs(chosenDate.getTime() - currentDate.getTime());
@@ -74,7 +74,8 @@ const options = {
             console.log(chosenDate.getTime());
             console.log(currentDate.getTime());
             startBtn.addEventListener('click', startCounter);
-             function startCounter(){
+            // counter trigger function
+            function startCounter(){                    
                 clearInterval(timerInterval);
                timerInterval = setInterval(()=> counter(chosenDate), 1000);
                 startBtn.setAttribute(`disabled`, true);
