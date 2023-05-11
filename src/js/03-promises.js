@@ -17,13 +17,13 @@ function createPromise(position, delay) {
    
   });
 }
+const amount = parseInt(amountInput.value);
+const delay = parseInt(delayInput.value);
+const step = parseInt(stepInput.value);
+ 
 function launch(event){
   event.preventDefault();
-  const delay = parseInt(delayInput.value);
-  const step = parseInt(stepInput.value);
-  const amount = parseInt(amountInput.value);
   for (let position = 1; position <= amount; i += 1) {
-   
     createPromise(position, delay + (i - 1) * step)
       .then(({ position, delay }) => {
         Notiflix.Notify.success(
