@@ -21,12 +21,11 @@ function createPromise(position, delay) {
  
 function onFormSubmit(event){
   event.preventDefault();
-  const amount = parseInt(amountInput.value);
-  const delay = parseInt(delayInput.value);
-  const step = parseInt(stepInput.value);
-
-  for (let position = 1; position <= amount; i += 1) {
-    createPromise(position, delay + (i - 1) * step)
+  let amount = parseInt(amountInput.value);
+  let delay = parseInt(delayInput.value);
+  let step = parseInt(stepInput.value);
+  for (let position = 1; position <= amount; position += 1) {
+    createPromise(position, delay + step*(position - 1))
       .then(({ position, delay }) => {
         Notiflix.Notify.success(
           `✅ Fulfilled promise ${position} in ${delay}ms`
