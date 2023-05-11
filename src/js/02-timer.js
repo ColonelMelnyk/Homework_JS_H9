@@ -47,7 +47,7 @@ function convertMs(ms) {
 }
 function counter(chosenDate){   // counter function, nuff said
 
-    currentDate = new Date();
+    const currentDate = new Date();
     const countdownTime = convertMs(chosenDate.getTime() - currentDate.getTime());
     console.log(countdownTime);
     onScreenLoad(countdownTime);
